@@ -1,1 +1,26 @@
-node_modules
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs & cache
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database-related files (if storing locally)
+dump.rdb
+*.sqlite
+*.db
+
+# Compiled files
+dist/
+build/
+
+# OS/System files
+.DS_Store
+Thumbs.db
