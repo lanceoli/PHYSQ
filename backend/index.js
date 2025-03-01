@@ -3,8 +3,28 @@ const app = express()
 const port = 3000 
 const mongoose = require("mongoose")
 
+const User = require("./models/user.model.js")
+
+app.use(express.json())
+
 app.get("/", (req, res) => {
     res.send("Hello World")
+})
+
+app.post("/api/signin", (req, res) => {
+    try {
+        
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+app.post("/api/signup", (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
 })
 
 mongoose.connect("mongodb+srv://johnandrewgacho:purgingorganics@physqcluster.hrhed.mongodb.net/Node-API?retryWrites=true&w=majority&appName=PHYSQCluster")
