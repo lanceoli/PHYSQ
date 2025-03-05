@@ -6,9 +6,7 @@ import axios from 'axios';
 const Login = () => {
     const [userType, setUserType] = useState("User");
 
-    // const [unameORemail, setUnameEmail] = useState('');
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -63,7 +61,7 @@ const Login = () => {
             <div className="flex flex-col gap-5">
                     <input
                         type="text"
-                        placeholder="USERNAME / EMAIL"
+                        placeholder="EMAIL"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-sm pb-2 mr-3 ml-3 bg-black border-b border-gray-500 focus:outline-none"
