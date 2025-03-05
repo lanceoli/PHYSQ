@@ -1,8 +1,29 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [userType, setUserType] = useState("User");
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios
+        .post('http://localhost:3000/LogIn', {
+            email,
+            password,
+        })
+        .then((result) => {
+            console.log(result);
+            if (result.data === 'Success') {
+            navigate('/');
+            }
+        })
+        .catch((err) => console.log(err));
+    };
 
     return (
         <div className="flex flex-col items-center bg-black text-white gap-15 min-h-[calc(100vh-4rem)]">
