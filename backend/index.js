@@ -22,9 +22,19 @@ app.get("/", (req, res) => {
     res.send("Hello World")
 })
 
-app.get("/apitest", (req,res) => {
-    res.send(c.call())
-})
+app.post("/apitest", async (req, res) => { 
+    try {
+        const { prompt } = req.body; // Extract prompt from request body
+
+        if (!prompt) {
+            return res.status(400).json({ error: "Prompt is required" });
+        }
+        const response = await c.call(prompt);
+        res.json({ message: response });  // Send response as JSON
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 app.post("/LogIn", async (req, res) => {
     try {
