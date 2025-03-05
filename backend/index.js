@@ -1,9 +1,12 @@
+const c = require("./Gemini/apitest.js")
 const express = require("express")
 const app = express()
 const port = 3000 
 const mongoose = require("mongoose")
 
 const User = require("./models/user.model.js")
+const Trainer = require("./models/trainer.model.js")
+
 
 app.use(express.json())
 
@@ -11,6 +14,9 @@ app.get("/", (req, res) => {
     res.send("Hello World")
 })
 
+app.get("/apitest", (req,res) => {
+    res.send(c.call())
+})
 app.post("/api/signin", async (req, res) => {
     try {
        const user = await User.create(req.body)
