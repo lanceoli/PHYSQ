@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 
 const User = require("./models/user.model.js")
 const Trainer = require("./models/trainer.model.js")
+const CoachingSession = require("./models/coachingsession.model.js")
 
 
 app.use(express.json())
