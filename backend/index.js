@@ -38,7 +38,7 @@ app.post("/apitest", async (req, res) => {
 
 app.post("/LogIn", async (req, res) => {
     const {email, password} = req.body;
-    UsersModel.findOne({email: email})
+    User.findOne({email: email})
     .then(user => {
         if(user) {
             if(user.password === password) {
