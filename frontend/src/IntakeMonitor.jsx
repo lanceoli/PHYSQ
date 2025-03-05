@@ -1,12 +1,19 @@
 import React from "react";
+import IntakeCard from "./assets/components/IntakeCard";
 
 const IntakeMonitor = () => {
+  const [foodname, setFoodname] = React.useState("");
+  const [quantity, setQuantity] = React.useState("");
+  const [calories, setCalories] = React.useState("");
+  const [date, setDate] = React.useState("");
   return (
     <div className="bg-black text-white h-screen p-6 flex gap-8">
       <div className="w-1/3 border-r border-gray-700 pr-6">
         <div className="mb-6">
           <label className="block mb-1 font-semibold">FOOD NAME</label>
           <input
+            onChange={(e) => setFoodname(e.target.value)}
+            value={foodname}
             type="text"
             placeholder="Enter food name"
             className="w-full bg-base-1000 p-2 rounded text-red placeholder-gray-400 focus:outline-none border border-gray-500"
@@ -16,6 +23,8 @@ const IntakeMonitor = () => {
         <div className="mb-6">
           <label className="block mb-1 font-semibold">QUANTITY / PORTION</label>
           <input
+            onChange={(e) => setQuantity(e.target.value)}
+            value={quantity}
             type="text"
             placeholder="e.g. 100g or 3pcs"
             className="w-full bg-base-1000 p-2 rounded text-red placeholder-gray-400 focus:outline-none border border-gray-500"
@@ -24,6 +33,8 @@ const IntakeMonitor = () => {
         <div className="mb-6">
           <label className="block mb-1 font-semibold">CALORIES</label>
           <input
+            onChange={(e) => setCalories(e.target.value)}
+            value={calories}
             type="number"
             placeholder="e.g. 200"
             className="w-full bg-base-1000 p-2 rounded text-white placeholder-gray-400 focus:outline-none border border-gray-500"
@@ -32,6 +43,8 @@ const IntakeMonitor = () => {
         <div className="mb-6">
           <label className="block mb-1 font-semibold">DATE & TIME</label>
           <input
+            onChange={(e) => setDate(e.target.value)}
+            value={date}
             type="datetime-local"
             className="w-full bg-base-1000 p-2 rounded text-white focus:outline-none border border-gray-500"
           />
@@ -42,7 +55,22 @@ const IntakeMonitor = () => {
       </div>
 
       <div className="flex-1 space-y-4">
-        <div className="border-b border-gray-700 pb-4 flex justify-between">
+        <IntakeCard 
+        name = "Steak"
+        quantity = "100"
+        calories = "271"
+        date = "Feb 19"
+        time = "9:00 AM"
+        />
+        <IntakeCard 
+        name = "Steak"
+        quantity = "100"
+        calories = "271"
+        date = "Feb 19"
+        time = "9:00 AM"
+        />
+
+        {/* <div className="border-b border-gray-700 pb-4 flex justify-between">
           <div>
             <div className="text-xl font-semibold">Steak</div>
             <div className="text-sm text-gray-300">
@@ -58,9 +86,9 @@ const IntakeMonitor = () => {
               DELETE
             </button>
           </div>
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-700 pb-4 flex justify-between">
+        {/* <div className="border-b border-gray-700 pb-4 flex justify-between">
           <div>
             <div className="text-xl font-semibold">Eggs</div>
             <div className="text-sm text-gray-300">
@@ -76,7 +104,7 @@ const IntakeMonitor = () => {
               DELETE
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
