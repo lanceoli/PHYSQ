@@ -8,7 +8,7 @@ const Navbar = () => {
   const inactiveClassName = `text-white ${baseClasses}`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 navbar bg-black text-white px-4 h-16">      
+    <nav className="sticky top-0 left-0 right-0 z-50 navbar bg-black text-white px-4 h-16">      
       <div className="navbar-start">
         <NavLink to="/" className="text-3xl font-bold tracking-wide">
           PHYS

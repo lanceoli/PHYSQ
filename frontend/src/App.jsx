@@ -183,8 +183,9 @@ function Layout() {
 
   return (
     <>
+      <div className="flex flex-col h-screen">
       {!noNavbarRoutes.includes(location.pathname) && <Navbar />}
-      <div className="bg-black pt-16">
+  
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/MyWorkout" element={<MyWorkout />} />
@@ -197,7 +198,8 @@ function Layout() {
           <Route path="/SignUp1" element={<SignUp1 />} />
           <Route path="/SignUp2" element={<SignUp2 />} />
         </Routes>
-      </div>
+   
+</div>
     </>
   );
 }

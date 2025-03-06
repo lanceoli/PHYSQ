@@ -31,8 +31,8 @@ const MyWorkout = () => {
   };
 
   return (
-    <div className="overflow-x-none overflow-y-none">
-      <div className="bg-black text-white flex h-screen">
+ 
+      <div className="bg-black text-white flex h-full">
         <aside className="w-64 border-r border-gray-700 p-4 flex flex-col">
           {" "}
           {/* side bar area */}
@@ -92,6 +92,7 @@ const MyWorkout = () => {
               <input
                 type="text"
                 placeholder="Chat with PHYSQ here..."
+                value={prompt} 
                 className="flex-grow bg-transparent placeholder-gray-400 border-none text-white focus:outline-none"
                 onChange={(e) => setPrompt(e.target.value)}
               />
@@ -110,7 +111,7 @@ const MyWorkout = () => {
           </div>
         </main>
       </div>
-    </div>
+  
   );
 };
 
