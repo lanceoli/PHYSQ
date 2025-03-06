@@ -89,21 +89,21 @@ const MyWorkout = () => {
           </div>
           <div className="flex items-center justify-center w-full px-4 mb-8">
             <div className="flex items-center w-full max-w-xl bg-base-100 rounded-full px-4 py-2">
-              <input
+              { !loading ?(
+            <><input
                 type="text"
                 placeholder="Chat with PHYSQ here..."
-                value={prompt} 
+                value={prompt}
                 className="flex-grow bg-transparent placeholder-gray-400 border-none text-white focus:outline-none"
-                onChange={(e) => setPrompt(e.target.value)}
-              />
-              <button
-                onClick={(e) => {
-                  sendMessage();
-                }}
-                className="ml-2 cursor-pointer text-white bg-gray-600 hover:bg-gray-500 px-4 py-1 rounded-full"
-              >
-                Send
-              </button>
+                onChange={(e) => setPrompt(e.target.value)} /><button
+                  onClick={() => {
+                    sendMessage();
+                  } }
+                  className="ml-2 cursor-pointer text-white bg-gray-600 hover:bg-gray-500 px-4 py-1 rounded-full"
+                >
+                  Send
+                </button></>) : ("Loading...")
+}
             </div>
           </div>
         </main>
