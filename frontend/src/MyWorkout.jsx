@@ -104,9 +104,6 @@ const MyWorkout = () => {
               >
                 Send
               </button>
-              <button className="ml-2 text-white bg-gray-600 hover:bg-gray-500 px-4 py-1 rounded-full">
-                +
-              </button>
             </div>
           </div>
         </main>
