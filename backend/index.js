@@ -15,11 +15,40 @@ const corsOptions ={
 const Trainer = require("./models/trainer.model.js")
 const CoachingSession = require("./models/coachingsession.model.js")
 
+const session = require('express-session')
+const MongoDBSession = require('connect-mongodb-session')(session)
+
+const isAuth = (req, res, next) => {
+    if (req.session.isAuth) {
+        next()
+    }
+    else {
+        res.redirect('/LogIn')
+    }
+}
+
+app.use(
+    session({
+        secret: "key",
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoDBSession({
+            uri: 'mongodb+srv://johnandrewgacho:purgingorganics@physqcluster.hrhed.mongodb.net/Node-API?retryWrites=true&w=majority&appName=PHYSQCluster',
+            collection: 'mySessions',
+        }),
+    })
+)
+
 app.use(cors(corsOptions))
 app.use(express.json())
 
 app.get("/", (req, res) => {
     res.send("Hello World")
+})
+
+app.get("/MyWorkout", isAuth, async (req, res) => {
+    await console.log("womp womp")
+    // res.render('MyWorkout')
 })
 
 app.post("/apitest", async (req, res) => { 
@@ -42,6 +71,7 @@ app.post("/LogIn", async (req, res) => {
     .then(user => {
         if(user) {
             if(user.password === password) {
+                req.session.isAuth = true
                 res.json("Success")
             }
             else {  // add visual error handler for password
@@ -80,3 +110,4 @@ mongoose.connect("mongodb+srv://johnandrewgacho:purgingorganics@physqcluster.hrh
 .catch(() => {
     console.log("Connection Failed!")
 })
+
