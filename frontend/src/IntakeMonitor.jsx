@@ -1,11 +1,25 @@
 import React from "react";
 import IntakeCard from "./assets/components/IntakeCard";
+import axios from "axios";
 
 const IntakeMonitor = () => {
   const [foodname, setFoodname] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
   const [calories, setCalories] = React.useState("");
   const [date, setDate] = React.useState("");
+
+  const promptCalorie = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/calorie", {
+        prompt: foodname + " " + quantity,
+      });
+      setCalories(response.data.message);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error fetching AI response", error);
+    }
+  };
+
   return (
     <div className="bg-black text-white h-screen p-6 flex gap-8">
       <div className="w-1/3 border-r border-gray-700 pr-6">
@@ -35,7 +49,7 @@ const IntakeMonitor = () => {
           <input
             onChange={(e) => setCalories(e.target.value)}
             value={calories}
-            type="number"
+            type="text"
             placeholder="e.g. 200"
             className="w-full bg-base-1000 p-2 rounded text-white placeholder-gray-400 focus:outline-none border border-gray-500"
           />
@@ -49,7 +63,7 @@ const IntakeMonitor = () => {
             className="w-full bg-base-1000 p-2 rounded text-white focus:outline-none border border-gray-500"
           />
         </div>        
-        <button className="block mx-auto bg-[#FFB100] text-black px-4 py-2 rounded-full font-semibold hover:bg-orange-400 transition-colors transform hover:scale-105 duration-500 shadow-lg text-sm">
+        <button onClick={promptCalorie} className="block mx-auto bg-[#FFB100] text-black px-4 py-2 rounded-full font-semibold hover:bg-orange-400 transition-colors transform hover:scale-105 duration-500 shadow-lg text-sm">
          ADD MEAL
         </button>            
       </div>

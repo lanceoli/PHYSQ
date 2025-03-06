@@ -1,4 +1,5 @@
 const c = require("./Gemini/apitest.js")
+const calorie = require("./controller/intake.cotroller.js")
 const express = require("express")
 const app = express()
 const port = 3000 
@@ -14,6 +15,7 @@ const corsOptions ={
 
 const Trainer = require("./models/trainer.model.js")
 const CoachingSession = require("./models/coachingsession.model.js")
+const Intake = require("./models/intake.model.js")
 
 const session = require('express-session')
 const MongoDBSession = require('connect-mongodb-session')(session)
@@ -59,6 +61,20 @@ app.post("/apitest", async (req, res) => {
             return res.status(400).json({ error: "Prompt is required" });
         }
         const response = await c.call(prompt);
+        res.json({ message: response });  // Send response as JSON
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post("/calorie", async (req, res) => { 
+    try {
+        const { prompt } = req.body; // Extract prompt from request body
+
+        if (!prompt) {
+            return res.status(400).json({ error: "Prompt is required" });
+        }
+        const response = await calorie.callCalorie(prompt);
         res.json({ message: response });  // Send response as JSON
     } catch (error) {
         res.status(500).json({ error: error.message });
