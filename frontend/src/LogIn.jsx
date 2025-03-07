@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import authFunc from "./assets/isAuth.js";
 
 const Login = () => {
     const [userType, setUserType] = useState("User");
@@ -20,7 +21,8 @@ const Login = () => {
         .then((result) => {
             console.log(result);
             if (result.data === 'Success') {
-            navigate('/');
+                authFunc.auth = true
+                navigate('/');
             }
         })
         .catch((err) => console.log(err));
