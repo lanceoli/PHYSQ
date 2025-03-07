@@ -53,14 +53,6 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              to="/MyCoach"
-              className="hover:font-semibold focus:bg-[#FFB100] focus:text-black"
-            >
-              My Coach
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/IntakeMonitor"
               className="hover:font-semibold focus:bg-[#FFB100] focus:text-black"
             >
@@ -96,16 +88,6 @@ const Navbar = () => {
               }
             >
               My Workout
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/MyCoach"
-              className={({ isActive }) =>
-                isActive ? activeClassName : inactiveClassName
-              }
-            >
-              My Coach
             </NavLink>
           </li>
           <li>

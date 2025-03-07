@@ -8,15 +8,14 @@ const connectDB = require("./config/db.js")
 const app = express()
 const port = 3000 
 
-const User = require("./models/user.model.js")
 const corsOptions ={
     origin:'http://localhost:5173', 
     credentials:true,           
     optionSuccessStatus:200
 }
 
-const Trainer = require("./models/trainer.model.js")
-const CoachingSession = require("./models/coachingsession.model.js")
+const ChatSession = require ("./models/chatsession.model.js")
+const User = require("./models/user.model.js")
 const Intake = require("./models/intake.model.js")
 
 const session = require('express-session')
@@ -69,6 +68,9 @@ app.post("/apitest", async (req, res) => {
             return res.status(400).json({ error: "Prompt is required" });
         }
         const response = await workout.callWorkout(prompt);
+        ChatSession.create({uniquePrompt: prompt, message: response})
+            .then(result => res.json(result))
+            .catch(err => res.json(err))
         res.json({ message: response });  // Send response as JSON
     } catch (error) {
         res.status(500).json({ error: error.message });
