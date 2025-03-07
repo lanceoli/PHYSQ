@@ -23,14 +23,6 @@ const Intake = require("./models/intake.model.js")
 const session = require('express-session')
 const MongoDBSession = require('connect-mongodb-session')(session)
 
-const isAuth = (req, res, next) => {
-    if (req.session.isAuth) {
-        next()
-    }
-    else {
-        res.redirect('/LogIn')
-    }
-}
 
 //DB Connections
 connectDB()
@@ -54,11 +46,6 @@ app.use(express.json())
 //Routing Policies
 app.get("/", (req, res) => {
     res.send("Hello World")
-})
-
-app.get("/MyWorkout", isAuth, async (req, res) => {
-    await console.log("womp womp")
-    // res.render('MyWorkout')
 })
 
 app.post("/apitest", async (req, res) => { 

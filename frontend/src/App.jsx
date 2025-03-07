@@ -12,6 +12,8 @@ import LogIn from "./LogIn";
 import SignUp1 from "./SignUp1";
 import SignUp2 from "./SignUp2";
 
+import PrivateRoutes from "./assets/PrivateRoutes";
+
 function HomePage() {
   return (
     <div className="bg-black text-white">
@@ -188,9 +190,14 @@ function Layout() {
   
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/MyWorkout" element={<MyWorkout />} />
+
+          <Route path="/" element={<PrivateRoutes />}>
+            <Route path="/MyWorkout" element={<MyWorkout />} />
+            <Route path="/IntakeMonitor" element={<IntakeMonitor />} />
+          </Route>
+          {/* <Route path="/MyWorkout" element={<MyWorkout />} /> */}
           <Route path="/MyCoach" element={<MyCoach />} />
-          <Route path="/IntakeMonitor" element={<IntakeMonitor />} />
+          {/* <Route path="/IntakeMonitor" element={<IntakeMonitor />} /> */}
           <Route path="/History" element={<History />} />
           <Route path="/AddSchedule" element={<AddSchedule />} />
           <Route path="/ScheduleView" element={<ScheduleView />} />
