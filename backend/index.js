@@ -1,8 +1,7 @@
 require("dotenv").config();
-const c = require("./Gemini/apitest.js")
-const calorie = require("./controller/intake.cotroller.js")
+const workout = require("./controller/workout.controller.js")
+const calorie = require("./controller/intake.controller.js")
 const express = require("express")
-const mongoose = require("mongoose")
 const cors = require("cors")
 const connectDB = require("./config/db.js")
 
@@ -61,6 +60,7 @@ app.get("/MyWorkout", isAuth, async (req, res) => {
     // res.render('MyWorkout')
 })
 
+//this is  /MyWorkout
 app.post("/apitest", async (req, res) => { 
     try {
         const { prompt } = req.body; // Extract prompt from request body
@@ -68,7 +68,7 @@ app.post("/apitest", async (req, res) => {
         if (!prompt) {
             return res.status(400).json({ error: "Prompt is required" });
         }
-        const response = await c.call(prompt);
+        const response = await workout.callWorkout(prompt);
         res.json({ message: response });  // Send response as JSON
     } catch (error) {
         res.status(500).json({ error: error.message });
