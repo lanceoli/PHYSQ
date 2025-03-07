@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
+import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 
 const MyWorkout = () => {
   const [prompt, setPrompt] = useState(""); // Input value
@@ -31,84 +32,88 @@ const MyWorkout = () => {
   };
 
   return (
- 
-      <div className="bg-black text-white flex h-full">
-        <aside className="w-64 border-r border-gray-700 p-4 flex flex-col">
+    <div className="bg-black text-white flex h-full">
+      <aside className="w-64 border-r border-gray-700 p-4 flex flex-col">
+        {" "}
+        {/* side bar area */}
+        <div className="mb-4">
           {" "}
-          {/* side bar area */}
-          <div className="mb-4">
-            {" "}
-            {/* search box area */}
-            <input
-              type="text"
-              placeholder="Search..."
-              className="input input-bordered w-full bg-base-100 placeholder-gray-400 text-white"
-            />
-          </div>
-          <div className="flex-grow">
-            <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2 text-left">
-              test chat
-            </button>
-          </div>
-          <div>
-            <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2">
-              Current Workout Plan
-            </button>
-            <button className="btn w-full bg-base-100 hover:bg-gray-700">
-              New Chat
-            </button>
-          </div>
-        </aside>
+          {/* search box area */}
+          <input
+            type="text"
+            placeholder="Search..."
+            className="input input-bordered w-full bg-base-100 placeholder-gray-400 text-white"
+          />
+        </div>
+        <div className="flex-grow">
+          <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2 text-left">
+            test chat
+          </button>
+        </div>
+        <div>
+          <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2">
+            Current Workout Plan
+          </button>
+          <button className="btn w-full bg-base-100 hover:bg-gray-700">
+            New Chat
+          </button>
+        </div>
+      </aside>
 
-        <main className="flex-1 flex flex-col">
-          <div
-            className={`flex-1 overflow-y-auto flex flex-col p-4 ${
-              messages.length === 0 ? "justify-center items-center" : ""
-            }`}
-          >
-            {messages.length === 0 ? (
-              <h1 className="text-2xl md:text-3xl font-bold mb-4">
-                How can I help you with your workout?
-              </h1>
-            ) : (
-              <div className="w-full">
-                {messages.map((msg, index) => (
-                  <div
-                    key={index}
-                    className={`chat ${
-                      msg.type === "user" ? "chat-end" : "chat-start"
-                    }`}
-                  >
-                    <div className="chat-bubble">
-                      <ReactMarkdown>{msg.text}</ReactMarkdown>
-                    </div>
+      <main className="flex-1 flex flex-col">
+        <div
+          className={`flex-1 overflow-y-auto flex flex-col p-4 ${
+            messages.length === 0 ? "justify-center items-center" : ""
+          }`}
+        >
+          {messages.length === 0 ? (
+            <h1 className="text-2xl md:text-3xl font-bold mb-4">
+              How can I help you with your workout?
+            </h1>
+          ) : (
+            <div className="w-full">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`chat ${
+                    msg.type === "user" ? "chat-end" : "chat-start"
+                  }`}
+                >
+                  <div className="chat-bubble">
+                    <Markdown remarkPlugins={[remarkGfm]}>{msg.text}</Markdown>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="flex items-center justify-center w-full px-4 mb-8">
-            <div className="flex items-center w-full max-w-xl bg-base-100 rounded-full px-4 py-2">
-              { !loading ?(
-            <><input
-                type="text"
-                placeholder="Chat with PHYSQ here..."
-                value={prompt}
-                className="flex-grow bg-transparent placeholder-gray-400 border-none text-white focus:outline-none"
-                onChange={(e) => setPrompt(e.target.value)} /><button
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="flex items-center justify-center w-full px-4 mb-8">
+          <div className="flex items-center w-full max-w-xl bg-base-100 rounded-full px-4 py-2">
+            {!loading ? (
+              <>
+                <input
+                  type="text"
+                  placeholder="Chat with PHYSQ here..."
+                  value={prompt}
+                  className="flex-grow bg-transparent placeholder-gray-400 border-none text-white focus:outline-none"
+                  onChange={(e) => setPrompt(e.target.value)}
+                />
+                <button
                   onClick={() => {
                     sendMessage();
-                  } }
+                  }}
                   className="ml-2 cursor-pointer text-white bg-gray-600 hover:bg-gray-500 px-4 py-1 rounded-full"
                 >
                   Send
-                </button></>) : ("Loading...")
-}
-            </div>
+                </button>
+              </>
+            ) : (
+              "Loading..."
+            )}
           </div>
-        </main>
-      </div>
-  
+        </div>
+      </main>
+    </div>
   );
 };
 

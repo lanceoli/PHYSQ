@@ -1,10 +1,13 @@
+require("dotenv").config();
 const c = require("./Gemini/apitest.js")
 const calorie = require("./controller/intake.cotroller.js")
 const express = require("express")
-const app = express()
-const port = 3000 
 const mongoose = require("mongoose")
 const cors = require("cors")
+const connectDB = require("./config/db.js")
+
+const app = express()
+const port = 3000 
 
 const User = require("./models/user.model.js")
 const corsOptions ={
@@ -29,13 +32,17 @@ const isAuth = (req, res, next) => {
     }
 }
 
+//DB Connections
+connectDB()
+
+//Initiate Middleware
 app.use(
     session({
         secret: "key",
         resave: false,
         saveUninitialized: false,
         store: new MongoDBSession({
-            uri: 'mongodb+srv://johnandrewgacho:purgingorganics@physqcluster.hrhed.mongodb.net/Node-API?retryWrites=true&w=majority&appName=PHYSQCluster',
+            uri: process.env.DB_URI,
             collection: 'mySessions',
         }),
     })
@@ -44,6 +51,7 @@ app.use(
 app.use(cors(corsOptions))
 app.use(express.json())
 
+//Routing Policies
 app.get("/", (req, res) => {
     res.send("Hello World")
 })
@@ -116,14 +124,6 @@ app.post("/SignUp1", (req, res) => {
     }).catch(err => res.json(err))
 })
 
-mongoose.connect("mongodb+srv://johnandrewgacho:purgingorganics@physqcluster.hrhed.mongodb.net/Node-API?retryWrites=true&w=majority&appName=PHYSQCluster")
-.then(() => {
-    console.log("Connected to DB");
-    app.listen(port, () => {
-        console.log(`Server running on ${port}`)
-    })
+app.listen(port, ()=>{
+    console.log(`Server running on port ${port}`)
 })
-.catch(() => {
-    console.log("Connection Failed!")
-})
-
