@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm";
+import fat_s1mple from "./assets/images/fat_s1mple.jpeg"
+import goggins from "./assets/images/goggins.jpeg"
 
 const MyWorkout = () => {
   const [prompt, setPrompt] = useState(""); // Input value
@@ -33,36 +35,9 @@ const MyWorkout = () => {
 
   return (
     <div className="bg-black text-white flex h-full">
-      <aside className="w-64 border-r border-gray-700 p-4 flex flex-col">
-        {" "}
-        {/* side bar area */}
-        <div className="mb-4">
-          {" "}
-          {/* search box area */}
-          <input
-            type="text"
-            placeholder="Search..."
-            className="input input-bordered w-full bg-base-100 placeholder-gray-400 text-white"
-          />
-        </div>
-        <div className="flex-grow">
-          <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2 text-left">
-            test chat
-          </button>
-        </div>
-        <div>
-          <button className="btn w-full bg-base-100 hover:bg-gray-700 mb-2">
-            Current Workout Plan
-          </button>
-          <button className="btn w-full bg-base-100 hover:bg-gray-700">
-            New Chat
-          </button>
-        </div>
-      </aside>
-
       <main className="flex-1 flex flex-col">
         <div
-          className={`flex-1 overflow-y-auto flex flex-col p-4 ${
+          className={`px-32 flex-1 overflow-y-auto flex flex-col p-4 ${
             messages.length === 0 ? "justify-center items-center" : ""
           }`}
         >
@@ -79,6 +54,14 @@ const MyWorkout = () => {
                     msg.type === "user" ? "chat-end" : "chat-start"
                   }`}
                 >
+                  <div class="chat-image avatar">
+                    <div class="w-12 rounded-full">
+                      <img
+                        alt="Tailwind CSS chat bubble component"
+                        src={msg.type === "user" ? fat_s1mple : goggins}
+                      />
+                    </div>
+                  </div>
                   <div className="chat-bubble">
                     <Markdown remarkPlugins={[remarkGfm]}>{msg.text}</Markdown>
                   </div>
