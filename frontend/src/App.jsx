@@ -37,7 +37,7 @@ function HomePage() {
             </p>
             <Link
               className="inline-block bg-[#FFB100] text-black font-bold py-4 px-10 rounded-full hover:bg-orange-400 transition transform hover:scale-105 duration-300 shadow-lg"
-              to="/LogIn"
+              to='/Profile'
             >
               Get Started
             </Link>
@@ -172,7 +172,7 @@ function HomePage() {
           </p>
           <Link
             className="inline-block bg-[#FFB100] text-black font-bold py-4 px-10 rounded-full hover:bg-orange-400 transition transform hover:scale-105 duration-300 shadow-lg"
-            to="/LogIn"
+            to='/Profile'
           >
             Join Now!
           </Link>
