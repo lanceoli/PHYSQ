@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import authFunc from "./assets/isAuth.js";
@@ -10,6 +10,15 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     const data = window.sessionStorage.getItem('LOGIN')
+    //     console.log('data', data)
+    // }, [])
+
+    // useEffect(() => {
+    //     window.sessionStorage.setItem('LOGIN', JSON.stringify(authFunc.auth))
+    // }, [authFunc.auth])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,6 +31,9 @@ const Login = () => {
             console.log(result);
             if (result.data === 'Success') {
                 authFunc.auth = true
+                // () => this.authFunc.setAuth(true)
+                console.log('auth', authFunc.auth)
+
                 navigate('/');
             }
         })

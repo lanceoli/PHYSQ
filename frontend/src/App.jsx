@@ -11,8 +11,11 @@ import ScheduleView from "./ScheduleView";
 import LogIn from "./LogIn";
 import SignUp1 from "./SignUp1";
 import SignUp2 from "./SignUp2";
+import Profile from "./Profile";
 
 import PrivateRoutes from "./assets/PrivateRoutes";
+import { useEffect } from "react";
+import authFunc from "./assets/isAuth";
 
 function HomePage() {
   return (
@@ -183,6 +186,15 @@ function Layout() {
   const location = useLocation();
   const noNavbarRoutes = ["/LogIn", "/SignUp1", "/SignUp2"];
 
+  useEffect(() => {
+    const data = window.sessionStorage.getItem('LOGIN')
+    if ( data !== null ) authFunc.auth = JSON.parse(data)
+  }, [])
+  
+  useEffect(() => {
+    window.sessionStorage.setItem('LOGIN', JSON.stringify(authFunc.auth))
+  }, [authFunc.auth])
+
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -193,6 +205,7 @@ function Layout() {
           <Route path="/" element={<PrivateRoutes />}>
             <Route path="/MyWorkout" element={<MyWorkout />} />
             <Route path="/IntakeMonitor" element={<IntakeMonitor />} />
+            <Route path="/Profile" element={<Profile />} />
           </Route>
           {/* <Route path="/MyWorkout" element={<MyWorkout />} /> */}
           <Route path="/MyCoach" element={<MyCoach />} />
@@ -203,6 +216,7 @@ function Layout() {
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/SignUp1" element={<SignUp1 />} />
           <Route path="/SignUp2" element={<SignUp2 />} />
+          {/* <Route path="/Profile" element={<Profile />} /> */}
         </Routes>
    
 </div>

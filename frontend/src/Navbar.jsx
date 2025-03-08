@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import authFunc from "./assets/isAuth";
 
 const Navbar = () => {
   const baseClasses =
@@ -106,7 +107,8 @@ const Navbar = () => {
       <div className="navbar-end">
         <Link
           className="btn btn-circle bg-white text-black border-none hover:bg-gray-200"
-          to="/LogIn"
+          // to={ authFunc.auth ? "/Profile" : "/LogIn" }
+          to='/Profile'
         ></Link>
       </div>
     </nav>
