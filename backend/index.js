@@ -129,3 +129,10 @@ app.post("/SignUp1", (req, res) => {
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`)
 })
+
+app.get("/getIntake", async (req, res) => {
+    const { userID } = req.body;
+    Intake.find()
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
+})

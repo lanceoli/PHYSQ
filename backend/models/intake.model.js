@@ -14,6 +14,9 @@ const IntakeSchema = mongoose.Schema(
             type: mongoose.Schema.Types.Double,
             required: [true, "Calories not calculated"]
         },
+        userID: {
+            type: String,
+        },
     },
     {
         //created at, updated at
