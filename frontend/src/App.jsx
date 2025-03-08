@@ -187,8 +187,9 @@ function Layout() {
   const noNavbarRoutes = ["/LogIn", "/SignUp1", "/SignUp2"];
 
   useEffect(() => {
+    window.sessionStorage.setItem('LOGIN', null)
     const data = window.sessionStorage.getItem('LOGIN')
-    if ( data !== null ) authFunc.auth = JSON.parse(data)
+    if ( data !== null || data !== undefined) authFunc.auth = JSON.parse(data)
   }, [])
   
   useEffect(() => {
