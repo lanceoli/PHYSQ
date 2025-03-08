@@ -2,10 +2,10 @@ const mongoose = require("mongoose")
 
 const ChatSession = mongoose.Schema(
     {
-       /* userID: {
+        userID: {
             type: String,
-            required: [true, "Please Enter a User ID!"]
-        },*/
+            //required: [true, "Please Enter a User ID!"]
+        },
         uniquePrompt: {
             type: String,
             required: [true, "Please Enter a Prompt!"]
