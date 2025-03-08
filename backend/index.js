@@ -138,3 +138,13 @@ app.get("/getIntake", async (req, res) => {
         .then(result => res.json(result))
         .catch(err => res.json(err))
 })
+
+app.post("/addIntake", async (req, res) => {
+    const { foodname, quantity, calories, userID  } = req.body;
+    if (!foodname || !quantity || !calories) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+    Intake.create({ foodname: foodname, quantity: quantity, calories: calories, userID: userID})
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
+})
