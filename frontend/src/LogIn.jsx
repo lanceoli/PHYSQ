@@ -31,18 +31,11 @@ const Login = () => {
         })
         .then((result) => {
 
-            let resultArr = result.data.split(',')
-            // console.log(result);
-            console.log(resultArr[0]);
-            // if (result.data === 'Success') {
-            if (resultArr[0] === 'Success') {
+            console.log(result);
+            if (result.data === 'Success') {
                 authFunc.auth = true
                 // () => this.authFunc.setAuth(true)
                 console.log('auth', authFunc.auth)
-
-                // retrieve user_sessionId
-                user_sessionId = resultArr[1]
-                console.log(user_sessionId)
 
                 navigate('/');
             }
