@@ -99,7 +99,8 @@ app.post("/LogIn", async (req, res) => {
             if(user.password === password) {
                 req.session.isAuth = "Success"
                 console.log(req.sessionID)
-                res.json(req.session.isAuth)
+                // res.json(req.session.isAuth)
+                res.json(req.session.isAuth + ',' + req.sessionID)
                 // res.json("Success")
             }
             else {  // add visual error handler for password
