@@ -20,7 +20,7 @@ const MyWorkout = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/apitest", {
+      const response = await axios.post("http://localhost:3000/WorkoutSession", {
         prompt,
       });
       const aiMessage = { type: "ai", text: response.data.message };

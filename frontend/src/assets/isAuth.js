@@ -5,4 +5,4 @@ const authFunc = () => {
 
     
 }
-export default authFunc
+export default authFunc 

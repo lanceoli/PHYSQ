@@ -60,7 +60,7 @@ app.get("/MyWorkout", isAuth, async (req, res) => {
 })
 
 //this is  /MyWorkout
-app.post("/apitest", async (req, res) => { 
+app.post("/WorkoutSession", async (req, res) => { 
     try {
         const { prompt } = req.body; // Extract prompt from request body
 
