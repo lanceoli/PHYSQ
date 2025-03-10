@@ -30,6 +30,8 @@ const isAuth = (req, res, next) => {
     }
 }
 
+let user_id =  null
+
 //DB Connections
 connectDB()
 
@@ -61,6 +63,7 @@ app.get("/MyWorkout", isAuth, async (req, res) => {
 
 //this is  /MyWorkout
 app.post("/WorkoutSession", async (req, res) => { 
+    if (user_id !== null) console.log("checK: ",user_id.toString())
     try {
         const { prompt } = req.body; // Extract prompt from request body
 
@@ -68,9 +71,9 @@ app.post("/WorkoutSession", async (req, res) => {
             return res.status(400).json({ error: "Prompt is required" });
         }
         const response = await workout.callWorkout(prompt);
-        ChatSession.create({uniquePrompt: prompt, message: response})
-            .then(result => res.json(result))
-            .catch(err => res.json(err))
+     //   ChatSession.create({userID: user_id, uniquePrompt: prompt, message: response})
+     //       .then(result => res.json(result))
+      //      .catch(err => res.json(err))
         res.json({ message: response });  // Send response as JSON
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -98,6 +101,9 @@ app.post("/LogIn", async (req, res) => {
         if(user) {
             if(user.password === password) {
                 req.session.isAuth = "Success"
+
+                user_id = user._id
+
                 console.log(req.sessionID)
                 res.json(req.session.isAuth)
                 // res.json(req.session.isAuth + ',' + req.sessionID)
