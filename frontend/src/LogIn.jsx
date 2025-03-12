@@ -98,7 +98,7 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col items-center gap-3">
-                <button type="submit" className="w-30 bg-yellow-500 text-black px-5 py-2 rounded-lg font-bold text-xl text-center" to="/">
+                <button type="submit" className="cursor-pointer w-30 bg-yellow-500 text-black px-5 py-2 rounded-lg font-bold text-xl text-center" to="/">
                     Log-in
                 </button>
                 <p className="text-md">
