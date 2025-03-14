@@ -11,15 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const data = window.sessionStorage.getItem('LOGIN')
-    //     console.log('data', data)
-    // }, [])
-
-    // useEffect(() => {
-    //     window.sessionStorage.setItem('LOGIN', JSON.stringify(authFunc.auth))
-    // }, [authFunc.auth])
-
     let user_sessionId = null
 
     const handleSubmit = (e) => {

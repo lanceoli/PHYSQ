@@ -188,10 +188,11 @@ function Layout() {
 
   useEffect(() => {
     const data = window.sessionStorage.getItem('LOGIN')
-    if(data == 'undefined'){
-      window.sessionStorage.setItem('LOGIN', null)
+    console.log("app.jsx", data, "| is data==null?",  data == 'null')
+    if( data == 'null' || data == 'undefined' ){
+      window.sessionStorage.setItem('LOGIN', false)
     }
-    if ( data !== null || data !== undefined) authFunc.auth = JSON.parse(data)
+    if ( data !== 'null' || data !== 'undefined') authFunc.auth = JSON.parse(data)
   }, [])
   
   useEffect(() => {
