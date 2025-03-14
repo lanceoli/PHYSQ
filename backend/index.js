@@ -172,3 +172,9 @@ app.post("/addIntake", async (req, res) => {
     .then((result) => res.json(result))
     .catch((err) => res.json(err));
 });
+
+app.get('/Profile', (req, res) => {
+  User.findById({_id: user_id})
+  .then(userInfo => res.json(userInfo))
+  .catch(err => res.json(err))
+})

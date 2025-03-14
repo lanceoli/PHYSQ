@@ -1,10 +1,25 @@
 import authFunc from "./assets/isAuth";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Profile() {
   const handleLogout = () => {
-    authFunc.auth = false;
+    authFunc.auth = false
   };
+
+  const [userInfo, setUserInfo] = useState([])
+
+  useEffect(() => {
+    axios
+    // UNCOMMENT LINE BELOW FOR LOCAL HOST AND COMMENT NEXT LINE
+    .get('http://localhost:3000/Profile'
+    )
+    .then(result => setUserInfo(result.data))
+    .catch(err => console.log(err))
+  }, [])
+
+  // console.log("userInfo:", userInfo)
 
   return (
     <div className="flex items-center justify-center h-screen bg-black text-white">
