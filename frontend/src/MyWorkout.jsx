@@ -1,31 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import fat_s1mple from "./assets/images/fat_s1mple.jpeg"
-import goggins from "./assets/images/goggins.jpeg"
+import ChatCard from "./assets/components/ChatCard";
+import fat_s1mple from "./assets/images/fat_s1mple.jpeg";
+import goggins from "./assets/images/goggins.jpeg";
 
 const MyWorkout = () => {
   const [prompt, setPrompt] = useState(""); // Input value
   const [messages, setMessages] = useState([]); // Chat messages
   const [loading, setLoading] = useState(false);
 
+  ////////////////
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/RetrieveChats");
+        setMessages([...response.data]);
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    };
+
+    fetchChats();
+  }, []);
+  ////////////////
   const sendMessage = async () => {
     if (!prompt.trim()) return; // Prevent empty messages
-
-    const userMessage = { type: "user", text: prompt };
-    setMessages((prev) => [...prev, userMessage]); // Show user message
 
     setPrompt(""); // Clear input
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/WorkoutSession", {
-        prompt,
-      });
-      const aiMessage = { type: "ai", text: response.data.message };
-
-      setMessages((prev) => [...prev, aiMessage]); // Show AI response
+      const response = await axios.post(
+        "http://localhost:3000/WorkoutSession",
+        {
+          prompt,
+        },
+      );
+      const messageFormat = {
+        uniquePrompt: prompt,
+        message: response.data.message,
+        createdAt: new Date().toISOString()
+      };
+      setMessages((prev) => [...prev, messageFormat]);
     } catch (error) {
       console.error("Error fetching AI response", error);
     } finally {
@@ -47,31 +63,21 @@ const MyWorkout = () => {
             </h1>
           ) : (
             <div className="w-full">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`chat ${
-                    msg.type === "user" ? "chat-end" : "chat-start"
-                  }`}
-                >
-                  <div class="chat-image avatar">
-                    <div class="w-12 rounded-full">
-                      <img
-                        alt="Tailwind CSS chat bubble component"
-                        src={msg.type === "user" ? fat_s1mple : goggins}
-                      />
-                    </div>
-                  </div>
-                  <div className="chat-bubble">
-                    <Markdown remarkPlugins={[remarkGfm]}>{msg.text}</Markdown>
-                  </div>
-                </div>
-              ))}
+              {
+                ////MESSAGES////
+                messages.map((msg, index) => (
+                  <>
+                  <ChatCard type="user" date= {msg.createdAt} img= {fat_s1mple} msg={msg.uniquePrompt}/>
+                  <ChatCard type="ai" img= {goggins} msg={msg.message}/>
+                  </>
+                ))
+              }
+
             </div>
           )}
         </div>
         <div className="flex items-center justify-center w-full px-4 mb-8">
-          <div className="flex items-center w-full max-w-xl bg-base-100 rounded-full px-4 py-2">
+          <div className="flex items-center w-full max-w-xl bg-base-300 rounded-full px-4 py-2">
             {!loading ? (
               <>
                 <input
