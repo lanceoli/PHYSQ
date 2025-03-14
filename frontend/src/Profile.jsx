@@ -32,7 +32,7 @@ export default function Profile() {
           {/* <span className="text-2xl text-gray-300">rayray@gmail.com</span> */}
           <span className="text-2xl text-gray-300">{userInfo.email}</span>
           <Link to="/" onClick={handleLogout}>
-            <button className="bg-[#FFB100] text-black font-bold text-xl px-8 py-3 rounded-full hover:bg-orange-300 transition transform hover:scale-105 duration-300 shadow-lg">
+            <button className="bg-[#FFB100] cursor-pointer text-black font-bold text-xl px-8 py-3 rounded-full hover:bg-orange-300 transition transform hover:scale-105 duration-300 shadow-lg">
               Log-out
             </button>
           </Link>
