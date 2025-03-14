@@ -163,29 +163,65 @@ app.post("/SignUp1", (req, res) => {
 
 ////////FOOD INTAKE////////
 app.get("/getIntake", async (req, res) => {
-    const { userID } = req.body;
-    Intake.find()
-        .then((result) => res.json(result))
-        .catch((err) => res.json(err));
+  console.log(user_id);
+  Intake.find({userID: user_id})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
+
+app.get("/getIntakeOne/:id", async (req, res) => {
+  const { id } = req.params;
+
+  Intake.findById(id)
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
+
+app.delete("/deleteIntake/:id", async (req, res) => {
+  const { id } = req.params;
+  Intake.findByIdAndDelete(id)
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
 });
 
 app.post("/addIntake", async (req, res) => {
-    const { foodname, quantity, calories, userID } = req.body;
-    if (!foodname || !quantity || !calories) {
-        return res.status(400).json({ error: "Missing required fields" });
-    }
-    Intake.create({
-        foodname: foodname,
-        quantity: quantity,
-        calories: calories,
-        userID: userID,
-    })
-        .then((result) => res.json(result))
-        .catch((err) => res.json(err));
+  if (user_id !== null) console.log("checK: ", user_id.toString());
+  else console.log("user_id is null");
+  const { foodname, quantity, unit, calories} = req.body;
+  if (!foodname || !quantity || !calories || !unit) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  Intake.create({
+    foodname: foodname,
+    quantity: quantity,
+    unit: unit,
+    calories: calories,
+    userID: user_id,
+  })
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
 });
+
+app.put("/updateIntake/:id", async (req, res) => {
+  const { id } = req.params;
+  const { foodname, quantity, unit, calories} = req.body;
+  if (!foodname || !quantity || !calories || !unit) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  Intake.findByIdAndUpdate(id, {
+    foodname: foodname,
+    quantity: quantity,
+    unit: unit,
+    calories: calories,
+  })
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
+
 
 ////////PROFILE////////
 app.get('/Profile', (req, res) => {
+  console.log(user_id);
     User.findById({ _id: user_id })
         .then(userInfo => res.json(userInfo))
         .catch(err => res.json(err))

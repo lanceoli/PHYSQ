@@ -7,8 +7,12 @@ const IntakeSchema = mongoose.Schema(
             required: [true, "Please Enter a Food"]
         },
         quantity: {
-            type: String,
+            type: mongoose.Schema.Types.Double,
             required: [true, "Please Enter the Food Quantity"]
+        },
+        unit: {
+            type: String,
+            required: [true, "Please Enter the Unit"]
         },
         calories: {
             type: mongoose.Schema.Types.Double,

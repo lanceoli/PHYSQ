@@ -1,6 +1,7 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import IntakeCard from "./assets/components/IntakeCard";
 import axios from "axios";
+import { set } from "mongoose";
 
 const IntakeMonitor = () => {
   const [foodname, setFoodname] = React.useState("");
@@ -9,6 +10,7 @@ const IntakeMonitor = () => {
   const [calories, setCalories] = React.useState("");
   const [date, setDate] = React.useState("");
   const [combined, setCombined] = React.useState("");
+  const [intake, setIntake] = React.useState([]);
 
   const promptCalorie = async () => {
     try {
@@ -22,17 +24,17 @@ const IntakeMonitor = () => {
       console.error("Error fetching AI response", error);
     }
   };
+  
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const combinedText = quantity + unit;
     const cleanedCalories = calories.replace(/\n/g, '');
   
-    setCombined(combinedText);
     setCalories(cleanedCalories);
-    axios
+    const result = await axios
       .post("http://localhost:3000/addIntake", {
         foodname: foodname,
-        quantity: combinedText,
+        quantity: quantity,
+        unit: unit,
         calories: cleanedCalories,
         date: date,
       })
@@ -40,7 +42,44 @@ const IntakeMonitor = () => {
         console.log(result);
       })
       .catch((err) => console.log(err));
+    fetchIntake();
+    setFoodname("");
+    setQuantity("");
+    setUnit("g");
+    setCalories("");
+    setDate("");
   };
+
+  const handleDelete = async (id) => {
+    const result = await axios
+      .delete(`http://localhost:3000/deleteIntake/${id}`)
+      .then((result) => {
+        console.log(result);
+      })
+    fetchIntake();
+  }
+  const fetchIntake = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/getIntake");
+      console.log(response.data);
+      setIntake(response.data);
+    } catch (error) {
+      console.error("Error fetching AI response", error);
+    }
+  };
+
+useEffect(() => {
+ fetchIntake();
+}, []);
+
+// useEffect(() => {
+//   const getIntake = async () => {
+//     const data = await fetchIntake();
+//     setIntake(data);
+//   };
+
+//   getIntake();
+// }, [intake.length]);
 
   return (
     <div className="bg-black text-white h-screen p-6 flex gap-8">
@@ -108,20 +147,20 @@ const IntakeMonitor = () => {
       </div>
 
       <div className="flex-1 space-y-4">
-        <IntakeCard 
-        name = "Steak"
-        quantity = "100"
-        calories = "271"
-        date = "Feb 19"
-        time = "9:00 AM"
-        />
-        <IntakeCard 
-        name = "Steak"
-        quantity = "100"
-        calories = "271"
-        date = "Feb 19"
-        time = "9:00 AM"
-        />
+        {intake.map((item) => (
+          <IntakeCard
+            key={item._id}
+            _id={item._id}
+            name={item.foodname}
+            quantity={item.quantity}
+            unit={item.unit}
+            calories={item.calories}
+            date={item.createdAt}
+            handleDelete={() => handleDelete(item._id)}
+            fetchIntake={() => fetchIntake()}
+            />
+        ))}
+
 
         {/* <div className="border-b border-gray-700 pb-4 flex justify-between">
           <div>
