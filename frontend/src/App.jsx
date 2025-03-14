@@ -156,7 +156,7 @@ function Layout() {
   useEffect(() => {
     const data = window.sessionStorage.getItem("LOGIN");
 
-    if (data === null || data === undefined) {
+    if (data == 'null' || data == 'undefined') {
       window.sessionStorage.setItem("LOGIN", JSON.stringify(false));
     } else {
       authFunc.auth = JSON.parse(data);
