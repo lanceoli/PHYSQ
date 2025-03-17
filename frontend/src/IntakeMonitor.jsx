@@ -27,7 +27,9 @@ const IntakeMonitor = () => {
   
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const cleanedCalories = calories.replace(/\n/g, '');
+    
+    const cleanedCalories = calories.trim().replace(/\n/g, '');
+    const numericCalories = parseFloat(cleanedCalories);
   
     setCalories(cleanedCalories);
     const result = await axios
@@ -35,7 +37,7 @@ const IntakeMonitor = () => {
         foodname: foodname,
         quantity: quantity,
         unit: unit,
-        calories: cleanedCalories,
+        calories: numericCalories,
         date: date,
       })
       .then((result) => {

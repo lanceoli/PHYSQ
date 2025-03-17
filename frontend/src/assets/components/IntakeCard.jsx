@@ -7,10 +7,8 @@ const IntakeCard = (props) => {
 
   const handleUpdate = async (id) => {
     console.log(calories);
-    const cleanedCalories = calories;
-    if (calories.type === "string") {
-      cleanedCalories = calories.replace(/\n/g, '');
-    }
+    const cleanedCalories = calories.replace(/\n/g, '');
+
     
 
       const result = await axios
