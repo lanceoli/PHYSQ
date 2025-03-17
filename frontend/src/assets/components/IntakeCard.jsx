@@ -68,7 +68,7 @@ const IntakeCard = (props) => {
             <div className="text-sm text-[#FFB100]">{formattedDate} | {formattedTime}</div>
           </div>
           <div className="flex items-start space-x-4">
-            <button className="text-[#FFB100] font-semibold hover:underline" onClick={()=>document.getElementById(props._id).showModal()}>
+            <button className="text-[#FFB100] cursor-pointer font-semibold hover:underline" onClick={()=>document.getElementById(props._id).showModal()}>
               UPDATE
             </button>
             <dialog id={props._id} className="modal">
@@ -132,7 +132,7 @@ const IntakeCard = (props) => {
                   </button>  
               </div>
             </dialog>
-            <button className="text-red-500 font-semibold hover:underline" onClick={props.handleDelete}>
+            <button className="text-red-500 font-semibold hover:underline cursor-pointer" onClick={props.handleDelete}>
               DELETE
             </button>
           </div>

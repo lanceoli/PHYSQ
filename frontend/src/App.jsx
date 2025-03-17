@@ -179,16 +179,10 @@ function Layout() {
             <Route path="/IntakeMonitor" element={<IntakeMonitor />} />
             <Route path="/Profile" element={<Profile />} />
           </Route>
-          {/* <Route path="/MyWorkout" element={<MyWorkout />} /> */}
-          <Route path="/MyCoach" element={<MyCoach />} />
-          {/* <Route path="/IntakeMonitor" element={<IntakeMonitor />} /> */}
-          <Route path="/History" element={<History />} />
-          <Route path="/AddSchedule" element={<AddSchedule />} />
-          <Route path="/ScheduleView" element={<ScheduleView />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/SignUp1" element={<SignUp1 />} />
           <Route path="/SignUp2" element={<SignUp2 />} />
-          {/* <Route path="/Profile" element={<Profile />} /> */}
+          
         </Routes>
       </div>
     </>
