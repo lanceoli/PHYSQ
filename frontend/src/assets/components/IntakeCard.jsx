@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 const IntakeCard = (props) => {
+  const deleteId = "delete" + props._id;
 
   const handleUpdate = async (id) => {
     console.log(calories);
@@ -132,9 +133,30 @@ const IntakeCard = (props) => {
                   </button>  
               </div>
             </dialog>
-            <button className="text-red-500 font-semibold hover:underline cursor-pointer" onClick={props.handleDelete}>
+            <button className="text-red-500 font-semibold hover:underline" onClick={()=>document.getElementById(deleteId).showModal()}>
               DELETE
             </button>
+            <dialog id={deleteId} className="modal">
+              <div className="modal-box">
+              <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            </form>
+                            <h3 className="font-bold text-lg">Delete Meal</h3>
+                            <div>
+                                Are you sure you want to delete <span className="font-bold">{props.name}</span>?
+                            </div>
+                            <div className="flex flex-row gap-2 mt-5">
+                                <div className='btn grow block mx-auto bg-[#FFB100] text-black px-4 py-2 rounded-full font-semibold hover:bg-orange-400 transition-colors transform hover:scale-105 duration-500 shadow-lg text-sm'
+                                    onClick={ () => {props.handleDelete(id); document.getElementById(deleteId).close();}}>
+                                    Yes
+                                </div>
+                                <div className='btn grow block mx-auto bg-[#FFB100] text-black px-4 py-2 rounded-full font-semibold hover:bg-orange-400 transition-colors transform hover:scale-105 duration-500 shadow-lg text-sm' onClick={() => document.getElementById(deleteId).close()}>
+                                    No
+                                </div>
+                            </div>
+                
+              </div>
+            </dialog>
           </div>
         </div>
     )
